@@ -1,4 +1,8 @@
-const getDate = () => {
+const fs = require('fs');
+const path = require('path');
+const { exec, execSync } = require('child_process');
+
+const getThisMonth = () => {
     // 获取当前日期
     const currentDate = new Date();
     const year = currentDate.getFullYear();
@@ -18,8 +22,16 @@ const getDate = () => {
     return { since, until };
 }
 
-const fs = require('fs');
-const path = require('path');
+const getThisWeek = () => {
+    const currentDate = new Date();
+    const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - currentDate.getDay() + 1);
+    const lastDay = new Date(firstDay.getTime() + 6 * 24 * 60 * 60 * 1000);
+
+    const formattedFirstDay = `${firstDay.getFullYear()}-${String(firstDay.getMonth() + 1).padStart(2, '0')}-${String(firstDay.getDate()).padStart(2, '0')}`;
+    const formattedLastDay = `${lastDay.getFullYear()}-${String(lastDay.getMonth() + 1).padStart(2, '0')}-${String(lastDay.getDate()).padStart(2, '0')}`;
+
+    return { since: formattedFirstDay, until: formattedLastDay };
+}
 
 function findGitRepositories(rootDir) {
     const repositories = [];
@@ -50,7 +62,39 @@ function findGitRepositories(rootDir) {
     return repositories;
 }
 
+const getAllFolder = (dirs = []) => {
+    const allFolders = [];
+    dirs.forEach(rootDir => {
+        const folder = findGitRepositories(rootDir);
+        allFolders.push(...folder.map(e => ({ repo: e, rootDir })));
+    })
+    return allFolders;
+}
+
+const execRepo = (cwd, rootDir, cmd) => {
+    return new Promise((resolve, reject) => {
+        exec(cmd, { cwd }, (error, stdout, stderr) => {
+            const repo = path.resolve(__dirname, rootDir, cwd).replace(/\\/g, '/');
+            if (error) {
+                console.error(`${repo} 执行 Git 命令时出错: ${error.message}`);
+                execSync(`git config --global --add safe.directory ${repo}`);
+                reject(error);
+                return;
+            }
+            if (stderr) {
+                console.error(`Git 命令输出错误信息: ${stderr}`);
+                reject(stderr);
+                return;
+            }
+            resolve({repo, stdout});
+        });
+    })
+}
+
 module.exports = {
-    getDate,
-    findGitRepositories
+    getThisMonth,
+    getThisWeek,
+    findGitRepositories,
+    getAllFolder,
+    execRepo,
 }
