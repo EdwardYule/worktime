@@ -2,6 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const { exec, execSync } = require('child_process');
 
+/**
+ * @returns {{since: string, until: string}}
+ */
 const getThisMonth = () => {
     // 获取当前日期
     const currentDate = new Date();
@@ -22,6 +25,9 @@ const getThisMonth = () => {
     return { since, until };
 }
 
+/**
+ * @returns {{since: string, until: string}}
+ */
 const getThisWeek = () => {
     const currentDate = new Date();
     const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - currentDate.getDay() + 1);
@@ -33,6 +39,10 @@ const getThisWeek = () => {
     return { since: formattedFirstDay, until: formattedLastDay };
 }
 
+/**
+ * @param {string} rootDir
+ * @returns {string[]}
+ */
 function findGitRepositories(rootDir) {
     const repositories = [];
 
@@ -62,6 +72,10 @@ function findGitRepositories(rootDir) {
     return repositories;
 }
 
+/**
+ * @param {string[]} dirs
+ * @returns {{repo: string, rootDir: string}[]}
+ */
 const getAllFolder = (dirs = []) => {
     const allFolders = [];
     dirs.forEach(rootDir => {
@@ -71,6 +85,12 @@ const getAllFolder = (dirs = []) => {
     return allFolders;
 }
 
+/**
+ * @param {string} cwd
+ * @param {string} rootDir
+ * @param {string} cmd
+ * @returns {Promise<{repo: string, stdout: string}>}
+ */
 const execRepo = (cwd, rootDir, cmd) => {
     return new Promise((resolve, reject) => {
         exec(cmd, { cwd }, (error, stdout, stderr) => {

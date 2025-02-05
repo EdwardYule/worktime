@@ -6,7 +6,6 @@ const gitCommand = `git log --since="${since}" --until="${until}" --oneline --pr
 const rootDirs = ['../Edward', '../RecadasServer', '../wiseRental'];
 const allFolders = getAllFolder(rootDirs);
 
-// 统计工时
 Promise.all(allFolders.map(item => execRepo(item.repo, item.rootDir, gitCommand))).then((_res) => {
     const result = _res.filter(e => e.stdout !== '').map(e => {
         return {

@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/EdwardYule/worktime/issues"
   },
-  "homepage": "https://github.com/EdwardYule/worktime#readme"
+  "homepage": "https://github.com/EdwardYule/worktime#readme",
+  "dependencies": {
+    "openai": "^4.82.0"
+  }
 }

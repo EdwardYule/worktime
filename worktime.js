@@ -23,5 +23,5 @@ Promise.all(allFolders.map(item => execRepo(item.repo, item.rootDir, gitCommand)
         // e.length,
         `${Math.round((e.length / total) * 100)}%`
     ));
-    // console.log(total, result)
+    console.log(total, result)
 });
