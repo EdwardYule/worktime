@@ -2,10 +2,10 @@
   "name": "worktime",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/core/worktime.js",
   "scripts": {
-    "worktime": "node worktime.js",
-    "weekReport": "node weekReport.js",
+    "worktime": "node src/core/worktime.js",
+    "weekReport": "node src/reports/weekReport.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

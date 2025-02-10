@@ -1,3 +1,42 @@
+# Worktime
+
+一个用于统计工作时间和生成周报的工具。
+
+## 项目结构
+
+```
+.
+├── src/                    # 源代码目录
+│   ├── core/              # 核心功能
+│   │   ├── worktime.js    # 工作时间统计
+│   │   └── summarizeWork.js # 工作总结生成
+│   ├── utils/             # 工具函数
+│   │   └── utils.js       # 通用工具函数
+│   └── reports/           # 报告相关
+│       └── weekReport.js  # 周报生成
+├── data/                  # 数据文件
+│   └── weekResult.json    # 周报数据
+├── docs/                  # 文档
+│   └── weeklyReport.md    # 周报模板
+```
+
+## 使用方法
+
+1. 安装依赖：
+```bash
+npm install
+```
+
+2. 运行工作时间统计：
+```bash
+npm run worktime
+```
+
+3. 生成周报：
+```bash
+npm run weekReport
+```
+
 豆包提示词
 
 根据这个文件，整理一下我这周做了什么，不需要按照日期总结，尽量简洁精简，把描述相关的项尽可能进行合并，合并到每个项目下不超过十个小点，最好是五个小点以内。

@@ -1,5 +1,5 @@
 const path = require('path');
-const { getThisWeek, getAllFolder, execRepo } = require('./utils');
+const { getThisWeek, getAllFolder, execRepo } = require('../utils/utils');
 
 const { since, until } = getThisWeek();
 const gitCommand = `git log --since="${since}" --until="${until}" --oneline --pretty=format:%cd:%s --date=format:%Y-%m-%d --author=Edward`;
