@@ -40,6 +40,23 @@ const getThisWeek = () => {
 }
 
 /**
+ * @returns {{since: string, until: string}}
+ */
+const getLastWeek = () => {
+    const currentDate = new Date();
+    // 获取上周一
+    const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - currentDate.getDay() - 6);
+    // 获取上周日
+    const lastDay = new Date(firstDay.getTime() + 6 * 24 * 60 * 60 * 1000);
+
+    const formattedFirstDay = `${firstDay.getFullYear()}-${String(firstDay.getMonth() + 1).padStart(2, '0')}-${String(firstDay.getDate()).padStart(2, '0')}`;
+    const formattedLastDay = `${lastDay.getFullYear()}-${String(lastDay.getMonth() + 1).padStart(2, '0')}-${String(lastDay.getDate()).padStart(2, '0')}`;
+
+    return { since: formattedFirstDay, until: formattedLastDay };
+}
+
+
+/**
  * @param {string} rootDir
  * @returns {string[]}
  */
@@ -114,6 +131,7 @@ const execRepo = (cwd, rootDir, cmd) => {
 module.exports = {
     getThisMonth,
     getThisWeek,
+    getLastWeek,
     findGitRepositories,
     getAllFolder,
     execRepo,

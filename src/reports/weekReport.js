@@ -1,7 +1,7 @@
 const path = require('path');
-const { getThisWeek, getAllFolder, execRepo } = require('../utils/utils');
+const { getThisWeek, getAllFolder, execRepo, getLastWeek } = require('../utils/utils');
 
-const { since, until } = getThisWeek();
+const { since, until } = getLastWeek();
 const gitCommand = `git log --since="${since}" --until="${until}" --oneline --pretty=format:%cd:%s --date=format:%Y-%m-%d --author=Edward`;
 const rootDirs = ['../Edward', '../RecadasServer', '../wiseRental'];
 const allFolders = getAllFolder(rootDirs);

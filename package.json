@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/core/worktime.js",
+  "type": "module",
   "scripts": {
     "worktime": "node src/core/worktime.js",
     "weekReport": "node src/reports/weekReport.js",
+    "summarize": "node src/core/summarizeWork.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
