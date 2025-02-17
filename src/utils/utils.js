@@ -1,6 +1,6 @@
-const fs = require('fs');
-const path = require('path');
-const { exec, execSync } = require('child_process');
+import fs from 'fs';
+import path from 'path';
+import { exec, execSync } from 'child_process';
 
 /**
  * @returns {{since: string, until: string}}
@@ -54,7 +54,6 @@ const getLastWeek = () => {
 
     return { since: formattedFirstDay, until: formattedLastDay };
 }
-
 
 /**
  * @param {string} rootDir
@@ -111,7 +110,7 @@ const getAllFolder = (dirs = []) => {
 const execRepo = (cwd, rootDir, cmd) => {
     return new Promise((resolve, reject) => {
         exec(cmd, { cwd }, (error, stdout, stderr) => {
-            const repo = path.resolve(__dirname, rootDir, cwd).replace(/\\/g, '/');
+            const repo = path.resolve(path.dirname(new URL(import.meta.url).pathname), rootDir, cwd).replace(/\\/g, '/');
             if (error) {
                 console.error(`${repo} 执行 Git 命令时出错: ${error.message}`);
                 execSync(`git config --global --add safe.directory ${repo}`);
@@ -128,7 +127,7 @@ const execRepo = (cwd, rootDir, cmd) => {
     })
 }
 
-module.exports = {
+export {
     getThisMonth,
     getThisWeek,
     getLastWeek,

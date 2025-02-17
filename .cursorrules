@@ -1,0 +1,31 @@
+# Node.js 模块规范
+1. 当 package.json 中设置 "type": "module" 时，项目使用 ES Module 规范：
+   - 使用 import/export 语法而不是 require/module.exports
+   - 导入文件需要带 .js 扩展名
+   - 使用 import.meta.url 替代 __dirname
+   - fs、path 等内置模块需要使用 ES Module 方式导入
+   - 转换步骤：require -> import, module.exports -> export, __dirname -> import.meta.url
+   - 注意：项目中所有文件都需要统一使用 ES Module 规范，不能混用
+
+2. 当 package.json 中设置 "type": "commonjs" 时，项目使用 CommonJS 规范：
+   - 使用 require/module.exports 语法而不是 import/export
+   - 导入文件不需要带 .js 扩展名
+   - 使用 __dirname 替代 import.meta.url
+   - fs、path 等内置模块需要使用 CommonJS 方式导入
+   - 注意：项目中所有文件都需要统一使用 CommonJS 规范，不能混用
+
+3. 文件路径处理规范：
+   - 写入文件前先确保目标目录存在
+   - 使用 path.join() 处理跨平台路径
+   - ES Module 中处理 __dirname：
+     ```js
+     import { fileURLToPath } from 'url';
+     import { dirname } from 'path';
+     const __filename = fileURLToPath(import.meta.url);
+     const __dirname = dirname(__filename);
+     ``` 
+
+4. 文件输出路径规范：
+   - 配置文件和数据文件应统一放在项目根目录的特定文件夹中（如 config/、data/）
+   - 使用相对路径时，应该使用 path.join() 从 __dirname 往上级目录走
+   - 输出文件时应确保目标目录存在 

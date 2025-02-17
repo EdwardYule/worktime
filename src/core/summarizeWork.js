@@ -18,7 +18,14 @@ const weekResult = JSON.parse(fs.readFileSync(weekResultPath, 'utf-8'));
 
 // 调用通义千问 API 进行总结
 async function summarizeCommits(commits) {
-    const prompt = `请根据以下提交记录生成不超过五项的工作内容总结：\n${commits.join('\n')}`;
+    const prompt = `请根据以下提交记录工作周报，注意不要无中生有，只做精炼总结：
+        \n${commits.join('\n')}。
+        尽量总结5个以内，不要超过5个。
+        忽略bug修复，只总结新增和修改。
+        格式举例：
+            1. 新增被动核验自定义图功能
+            2. 修改登录方式
+    `;
     try {
         const completion = await openai.chat.completions.create({
             model: "qwen-plus",
@@ -43,7 +50,7 @@ async function generateWeeklyReport() {
     }
 
     // 将周报写入文件
-    const reportPath = path.join(__dirname, 'weeklyReport.md');
+    const reportPath = path.join(__dirname, '../../data/weeklySummaryReport.md');
     fs.writeFileSync(reportPath, `# 工作周报\n\n${report.join('\n\n')}`);
     console.log(`工作周报已生成: ${reportPath}`);
 }

@@ -1,4 +1,4 @@
-const { getThisMonth, getAllFolder, execRepo } = require('../utils/utils');
+import { getThisMonth, getAllFolder, execRepo } from '../utils/utils.js';
 
 const { since, until } = getThisMonth();
 const gitCommand = `git log --since="${since}" --until="${until}" --oneline --pretty=format:%cd --date=format:%d --author=Edward`;
