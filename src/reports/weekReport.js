@@ -9,7 +9,7 @@ const __dirname = dirname(__filename);
 
 const { since, until } = getLastWeek();
 const gitCommand = `git log --since="${since}" --until="${until}" --oneline --pretty=format:%cd:%s --date=format:%Y-%m-%d --author=Edward`;
-const rootDirs = ['../Edward', '../RecadasServer', '../wiseRental'];
+const rootDirs = ['../Edward'];
 const allFolders = getAllFolder(rootDirs);
 
 Promise.all(allFolders.map(item => execRepo(item.repo, item.rootDir, gitCommand))).then((_res) => {

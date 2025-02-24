@@ -1,39 +1,27 @@
 # 工作周报
 
-### E:/E:/worktime/src/Edward/B020
+### E:/E:/worktime/src/Edward/BU-Car/T014/Recadas_webapp
 
-1. 合并 `feature_rockchip` 分支至 B020 项目
-2. 新增被动核验自定义图功能
+1. **新增和优化配置相关功能**：实现了高危区域控制点功能、IO 设置、OSD 水印等功能模块，并完成了配置页面的总体设计及菜单展开性能优化。
 
-### E:/E:/worktime/src/Edward/client-new
+2. **重构和增强组件功能**：重构了标定组件、登录页面布局和样式，新增了BSD标定功能和安装位置选择组件，以及基础组件和统一表单样式。
 
-1. **新增和优化天然气流量大屏功能**：根据UI稿优化了大屏组件样式和布局，优化了实时抓拍列表显示逻辑，并增加了抓拍信息定时清除功能。
+3. **视频播放器组件开发**：新增并增强了视频播放器组件的功能和交互体验。
 
-2. **更新停车场管理模块**：移除了登录URL中的jump参数，并更新了登录方式。
+4. **快速安装向导功能实现**：开发了快速安装向导功能，提升用户安装效率。
 
-3. **沉睡用户周期管理增强**：允许删除所有沉睡用户配置，并添加了沉睡用户周期定义的国际化支持。
+5. **文档和规范补充**：补充和完善了项目样式规范和静态资源文档。
 
-4. **重构打印机配置功能**：修复了系统管理中打印机配置的功能，解决了控制台报错问题。
+### E:/E:/worktime/src/Edward/BU-IOT/B020
 
-5. **启用CaptureInfo组件初始化函数**：在数据屏模块中启用了CaptureInfo组件的初始化函数，增强了系统的稳定性和功能性。
+1. 恢复票务模式界面的上传功能
+2. 恢复 Malay 语言选项
 
-### E:/E:/worktime/src/Edward/dipingxian/miniprogram
+### E:/E:/worktime/src/Edward/BU-IOT/FacePass/client-new
 
-1. 修改活动详情权限：仅管理员和admin可编辑活动内容。  
-2. 新增活动详情编辑功能：支持管理员和admin进行编辑。
+1. 新增放开IOT升级页面权限
+2. 修改工控机IP地址编辑逻辑，禁止编辑IP地址
+3. 优化系统中IP地址的显示逻辑
+4. 修改工控机版本不展示IP地址的功能
 
-### E:/E:/worktime/src/Edward/MiniProgramProjects/poly-mini-program
-
-1. 优化设备控制组件在未登录状态下的样式。
-
-### E:/E:/worktime/src/Edward/Recadas_webapp
-
-1. 新增配置相关的API接口。
-2. 添加单元测试基础设施。
-3. 更新项目文档（README）。
-4. 初始化设备控制系统前端项目。
-5. 项目初始化，新增README。
-
-### E:/E:/worktime/src/wiseRental/reco-apartment-web
-
-1. 移除锁设备详情对话框的拖拽功能。
+以上总结涵盖了新增和修改的主要内容。
