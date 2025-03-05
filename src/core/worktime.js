@@ -1,6 +1,12 @@
-import { getThisMonth, getAllFolder, execRepo } from '../utils/utils.js';
+import { getLastMonth, getAllFolder, execRepo } from '../utils/utils.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const { since, until } = getThisMonth();
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const { since, until } = getLastMonth();
+console.log(since, until);
 const gitCommand = `git log --since="${since}" --until="${until}" --oneline --pretty=format:%cd --date=format:%d --author=Edward`;
 const rootDirs = ['../Edward'];
 const allFolders = getAllFolder(rootDirs);
@@ -17,11 +23,19 @@ Promise.all(allFolders.map(item => execRepo(item.repo, item.rootDir, gitCommand)
     })
     const result = res.filter(e => e.dateList.length > 0);
     const total = result.reduce((a, b) => a + b.length, 0);
-    result.forEach(e => console.log(
-        e.repo,
-        // e.dateList,
-        // e.length,
-        `${Math.round((e.length / total) * 100)}%`
-    ));
-    console.log(total, result)
+    
+    // 构建要保存的输出结果
+    let outputContent = `${since} ${until}\n\n`;
+    
+    // 添加每个仓库的统计信息
+    result.forEach(e => {
+        const percentage = Math.round((e.length / total) * 100);
+        outputContent += `${e.repo} ${percentage}%\n`;
+        console.log(e.repo, `${percentage}%`);
+    });
+
+    // 保存结果到文件
+    const savePath = path.resolve(__dirname, '../../data/weekResult.txt');
+    fs.writeFileSync(savePath, outputContent, 'utf8');
+    console.log('Results saved to data/weekResult.txt');
 });

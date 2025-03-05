@@ -56,6 +56,26 @@ const getLastWeek = () => {
 }
 
 /**
+ * @returns {{since: string, until: string}}
+ */
+const getLastMonth = () => {
+    const date = new Date();
+    date.setMonth(date.getMonth() - 1);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+
+    // 格式化月份和最后一天为两位数
+    const formattedMonth = String(month).padStart(2, '0');
+    const lastDay = new Date(year, month, 0).getDate();
+    const formattedLastDay = String(lastDay).padStart(2, '0');
+
+    return {
+        since: `${year}-${formattedMonth}-01`,
+        until: `${year}-${formattedMonth}-${formattedLastDay}`
+    };
+}
+
+/**
  * @param {string} rootDir
  * @returns {string[]}
  */
@@ -131,6 +151,7 @@ export {
     getThisMonth,
     getThisWeek,
     getLastWeek,
+    getLastMonth,
     findGitRepositories,
     getAllFolder,
     execRepo,
