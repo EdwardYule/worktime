@@ -22,9 +22,11 @@ async function summarizeCommits(commits) {
         \n${commits.join('\n')}。
         尽量总结5个以内，不要超过5个。
         忽略bug修复，只总结新增和修改。
+        不要使用md语法，只写内容即可。
+        括号内的数字表示完成度，请你固定写死100%。
         格式举例：
-            1. 新增被动核验自定义图功能
-            2. 修改登录方式
+            1. 新增被动核验自定义图功能(100%)
+            2. 修改登录方式(100%)
     `;
     try {
         const completion = await openai.chat.completions.create({
@@ -46,12 +48,12 @@ async function generateWeeklyReport() {
 
     for (const repo of weekResult) {
         const summary = await summarizeCommits(repo.stdout);
-        report.push(`### ${repo.repo}\n\n${summary}`);
+        report.push(`${repo.repo}\n\n${summary}`);
     }
 
     // 将周报写入文件
     const reportPath = path.join(__dirname, '../../data/weeklySummaryReport.md');
-    fs.writeFileSync(reportPath, `# 工作周报\n\n${report.join('\n\n')}`);
+    fs.writeFileSync(reportPath, `工作周报\n\n${report.join('\n\n')}`);
     console.log(`工作周报已生成: ${reportPath}`);
 }
 
